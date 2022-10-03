@@ -1,6 +1,7 @@
 package com.skaria.aws.data.api;
 
 import com.skaria.aws.data.model.UserAuthorizationRequestPayload;
+import com.skaria.aws.security.model.JwtAuthentication;
 import com.skaria.aws.security.model.UserAuthorizationResponsePayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,5 +38,6 @@ public class InternalApiClient {
 
 
     }
+
 
 }

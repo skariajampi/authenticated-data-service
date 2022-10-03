@@ -17,12 +17,28 @@ public class CognitoConfig {
     @Value(value = "${security.access-secret}")
     private String secretKey;
 
+    @Value(value = "${clientId}")
+    private String clientId;
+
     @Value(value = "${userPoolId}")
     private String userPoolId;
+
+    @Value(value = "${clientSecret}")
+    private String clientSecret;
 
     @Bean
     public String region() {
         return this.region;
+    }
+
+    @Bean
+    public String clientId() {
+        return this.clientId;
+    }
+
+    @Bean
+    public String clientSecret() {
+        return this.clientSecret;
     }
 
 }

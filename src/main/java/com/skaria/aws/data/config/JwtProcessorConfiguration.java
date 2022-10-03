@@ -8,13 +8,10 @@ import com.nimbusds.jose.util.DefaultResourceRetriever;
 import com.nimbusds.jose.util.ResourceRetriever;
 import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
 import com.nimbusds.jwt.proc.DefaultJWTProcessor;
-import com.skaria.aws.data.converter.CognitoAccessTokenConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -49,25 +46,5 @@ public class JwtProcessorConfiguration {
         jwtProcessor.setJWSKeySelector(keySelector);
 
         return jwtProcessor;
-    }
-
-    private static final String ROLES_CLAIM_NAME = "roles";
-    private static final String ROLE_PREFIX = "ROLE_";
-
-    @Bean
-    public JwtAuthenticationConverter getJwtAuthenticationConverter() {
-        JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter =
-                new JwtGrantedAuthoritiesConverter();
-        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName(ROLES_CLAIM_NAME);
-        jwtGrantedAuthoritiesConverter.setAuthorityPrefix(ROLE_PREFIX);
-        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
-
-        return jwtAuthenticationConverter;
-    }
-
-    @Bean
-    public CognitoAccessTokenConverter cognitoAccessTokenConverter() {
-        return new CognitoAccessTokenConverter();
     }
 }
