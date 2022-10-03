@@ -1,0 +1,33 @@
+---
+server:
+  port: 8080
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+security:
+  #auth-header-name: Authorization
+  #authentication-service: http://localhost:8081
+  #authorization-uri: /rest/users/authorize
+  #user-name-field: username
+  #groups-field: cognito:groups
+  access-key: ${AWS_ACCESS_KEY}
+  access-secret: ${AWS_ACCESS_SECRET_KEY}
+  region: ${AWS_REGION}
+  jwkUrl: https://cognito-idp.eu-west-2.amazonaws.com/${userPoolId}/.well-known/jwks.json
+  connection-timeout: 2000
+  read-timeout: 2000
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          cognito:
+          #issuerUri: https://cognito-idp.eu-west-2.amazonaws.com/${userPoolId}
+            #user-name-attribute: cognito:username
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://cognito-idp.eu-west-2.amazonaws.com/${userPoolId}/.well-known/jwks.json
+          issuer-uri: https://cognito-idp.eu-west-2.amazonaws.com/${userPoolId}
+  config:
+    import: optional:aws-secretsmanager:secret/demo
